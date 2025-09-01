@@ -1,0 +1,258 @@
+<!-- New Sign Off Form Page -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{vm.isEditMode ? 'Edit QA Sign Off' : 'New QA Sign Off'}}</h2>
+    <button class="btn btn-secondary" ng-click="vm.goHome()">Home</button>
+  </div>
+  
+  <!-- Loading indicator for edit mode -->
+  <div ng-if="vm.loading && vm.isEditMode" class="text-center mb-4">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p>Loading sign-off data...</p>
+  </div>
+  
+  <form name="signoffForm" ng-submit="vm.submit()" ng-if="!vm.loading || !vm.isEditMode">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Project Name *</label>
+          <input type="text" class="form-control" ng-model="vm.form.project_name" required />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>VDS *</label>
+          <select class="form-control" ng-model="vm.form.VDS_id" ng-options="v.vds_id as v.vds_name for v in vm.vdsList" required>
+            <option value="">Select VDS</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Application</label>
+          <input type="text" class="form-control" ng-model="vm.form.application" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>QA</label>
+          <input type="text" class="form-control" ng-model="vm.form.qa" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" class="form-control" ng-model="vm.form.start_date" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>End Date</label>
+          <input type="date" class="form-control" ng-model="vm.form.end_date" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Actual Start Date</label>
+          <input type="date" class="form-control" ng-model="vm.form.actual_start_date" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Actual End Date</label>
+          <input type="date" class="form-control" ng-model="vm.form.actual_end_date" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Production Release Date</label>
+          <input type="date" class="form-control" ng-model="vm.form.prod_rel_dt" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>RAG Status</label>
+          <select class="form-control" ng-model="vm.form.rag_status" ng-style="vm.getRagStatusStyle()">
+            <option value="">Select RAG Status</option>
+            <option value="RED" style="background-color: #ffebee; color: #c62828;">RED</option>
+            <option value="AMBER" style="background-color: #fff8e1; color: #f57c00;">AMBER</option>
+            <option value="GREEN" style="background-color: #e8f5e8; color: #2e7d32;">GREEN</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Task Type</label>
+          <select class="form-control" ng-model="vm.form.tasktype">
+            <option value="">Select Task Type</option>
+            <option value="Project">Project</option>
+            <option value="BAU">BAU</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Sign-Off Type</label>
+          <select class="form-control" ng-model="vm.form.signofftype">
+            <option value="">Select Sign-Off Type</option>
+            <option value="Conditional">Conditional</option>
+            <option value="Complete">Complete</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>CM Number</label>
+          <input type="text" class="form-control" ng-model="vm.form.cm_number" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>JIRA Link</label>
+          <input type="url" class="form-control" ng-model="vm.form.JIRA_Link" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Project Details</label>
+      <textarea class="form-control" rows="3" ng-model="vm.form.project_details"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Observations</label>
+      <textarea class="form-control" rows="3" ng-model="vm.form.observations"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Caveats</label>
+      <textarea class="form-control" rows="3" ng-model="vm.form.caveats"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Out Of Scope</label>
+      <textarea class="form-control" rows="3" ng-model="vm.form.outofscope"></textarea>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Defect Filter Link</label>
+          <input type="url" class="form-control" ng-model="vm.form.defect_filter_link" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Evidences</label>
+          <input type="text" class="form-control" ng-model="vm.form.evidences" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Sign-Off Comments</label>
+      <textarea class="form-control" rows="3" ng-model="vm.form.comments"></textarea>
+    </div>
+    
+    <!-- Test Cases Table -->
+    <div class="form-group">
+      <h4>Test Cases</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>Test Cases</th>
+              <th>RIAST</th>
+              <th>RIASP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Passed</strong></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.testCases.passed.riast" min="0" /></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.testCases.passed.riasp" min="0" /></td>
+            </tr>
+            <tr>
+              <td><strong>Failed</strong></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.testCases.failed.riast" min="0" /></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.testCases.failed.riasp" min="0" /></td>
+            </tr>
+            <tr>
+              <td><strong>Unexecuted</strong></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.testCases.unexecuted.riast" min="0" /></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.testCases.unexecuted.riasp" min="0" /></td>
+            </tr>
+            <tr class="table-secondary">
+              <td><strong>Total</strong></td>
+              <td><strong>{{vm.calculateTestCaseTotal('riast')}}</strong></td>
+              <td><strong>{{vm.calculateTestCaseTotal('riasp')}}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Defects Table -->
+    <div class="form-group">
+      <h4>Defects</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>Defects</th>
+              <th>Resolved</th>
+              <th>Deferred</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Enhancements</strong></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.defects.enhancements.resolved" min="0" /></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.defects.enhancements.deferred" min="0" /></td>
+            </tr>
+            <tr>
+              <td><strong>Defects</strong></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.defects.defects.resolved" min="0" /></td>
+              <td><input type="number" class="form-control" ng-model="vm.form.defects.defects.deferred" min="0" /></td>
+            </tr>
+            <tr class="table-secondary">
+              <td><strong>Total</strong></td>
+              <td><strong>{{vm.calculateDefectsTotal('resolved')}}</strong></td>
+              <td><strong>{{vm.calculateDefectsTotal('deferred')}}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="form-group d-flex justify-content-end">
+      <button type="button" class="btn btn-info mr-2" ng-click="vm.save()" ng-disabled="vm.loading">
+        {{vm.loading ? 'Saving...' : (vm.isEditMode ? 'Update' : 'Save')}}
+      </button>
+      <button type="submit" class="btn btn-success" ng-disabled="vm.loading">
+        {{vm.loading ? 'Submitting...' : (vm.isEditMode ? 'Update & Submit' : 'Submit')}}
+      </button>
+    </div>
+  </form>
+</div>

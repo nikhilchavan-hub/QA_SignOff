@@ -1,0 +1,287 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Environment variables files
+.env
+.env.test
+.env.production
+.env.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Project specific files
+uploads/*
+!uploads/.gitkeep
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+*.sql.bak
+
+# Temporary SQL files (development only)
+db_update.sql
+temp_*.sql
+migration_*.sql
+
+# Email test files
+email-test.js
+test-email.js
+email-config-test.js
+
+# Documentation files (keep only essential ones)
+EMAIL_SETUP_GUIDE.md
+Technical_Specification.md
+QA_SignOff_Requirements.txt
+
+# Configuration files with sensitive data
+config/database.js
+config/email.js
+
+# Build outputs
+dist/
+build/
+public/
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# Test coverage
+coverage/
+test-results/
+
+# Local development files
+.local
+local.*
+*.local
+
+# Certificate files
+*.pem
+*.crt
+*.key
+*.p12
+
+# Application logs
+app.log
+error.log
+access.log
+debug.log
+
+# Temporary folders
+tmp/
+temp/
+.tmp/
+
+# Webpack
+.webpack/
+
+# ESLint
+.eslintcache
+
+# Prettier
+.prettierignore
+
+# Parcel
+.cache/
+.parcel-cache/
+
+# SASS
+.sass-cache/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Jest
+/coverage/
+
+# Storybook
+.out
+.storybook-out
+
+# MacOS
+.AppleDouble
+.LSOverride
+
+# Windows
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Linux
+*~
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Firebase
+.firebase/
+.firebaserc
+firebase-debug.log
+
+# Vercel
+.vercel
+
+# Sentry
+.sentryclirc

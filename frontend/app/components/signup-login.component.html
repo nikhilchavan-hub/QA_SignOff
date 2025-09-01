@@ -1,0 +1,57 @@
+<!-- Signup & Login Page -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>QA Sign Off - Login / Signup</h3>
+        </div>
+        <div class="card-body">
+          <!-- Login Form -->
+          <form name="loginForm" ng-submit="vm.login()" ng-if="!vm.showSignup">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" ng-model="vm.loginData.email" required />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" ng-model="vm.loginData.password" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" ng-disabled="vm.loading">
+              {{vm.loading ? 'Logging in...' : 'Login'}}
+            </button>
+            <button type="button" class="btn btn-link" ng-click="vm.showSignup=true">Sign Up</button>
+          </form>
+          
+          <!-- Signup Form -->
+          <form name="signupForm" ng-submit="vm.signup()" ng-if="vm.showSignup">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" class="form-control" ng-model="vm.signupData.firstname" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" class="form-control" ng-model="vm.signupData.lastname" required />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" ng-model="vm.signupData.email" required />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" ng-model="vm.signupData.password" required />
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" class="form-control" ng-model="vm.signupData.confirmPassword" required />
+            </div>
+            <button type="submit" class="btn btn-success btn-block" ng-disabled="vm.loading">
+              {{vm.loading ? 'Signing up...' : 'Sign Up'}}
+            </button>
+            <button type="button" class="btn btn-link" ng-click="vm.showSignup=false">Back to Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

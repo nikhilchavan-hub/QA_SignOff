@@ -1,0 +1,295 @@
+<!-- Sign Off View Details Page -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Sign Off Details - {{vm.signOffData.project_name}}</h2>
+    <button class="btn btn-secondary" ng-click="vm.goBack()">
+      <i class="fa fa-arrow-left"></i> Back to Dashboard
+    </button>
+  </div>
+  
+  <div ng-if="vm.loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  
+  <div ng-if="!vm.loading && vm.signOffData" class="card">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Project Information</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Project Name:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.project_name || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>VDS:</strong></label>
+            <p class="form-control-plaintext">{{vm.vdsName || 'N/A'}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Application:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.application || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>QA:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.qa || 'N/A'}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Start Date:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.start_date | date:'mediumDate' || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>End Date:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.end_date | date:'mediumDate' || 'N/A'}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Actual Start Date:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.actual_start_date | date:'mediumDate' || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Actual End Date:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.actual_end_date | date:'mediumDate' || 'N/A'}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Production Release Date:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.prod_rel_dt | date:'mediumDate' || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>RAG Status:</strong></label>
+            <p class="form-control-plaintext">
+              <span ng-if="vm.signOffData.rag_status" class="badge badge-pill p-2" ng-style="vm.getRagStatusStyle()">
+                {{vm.signOffData.rag_status}}
+              </span>
+              <span ng-if="!vm.signOffData.rag_status">N/A</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>CM Number:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.cm_number || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>JIRA Link:</strong></label>
+            <p class="form-control-plaintext">
+              <a ng-if="vm.signOffData.jira_link" href="{{vm.signOffData.jira_link}}" target="_blank">{{vm.signOffData.jira_link}}</a>
+              <span ng-if="!vm.signOffData.jira_link">N/A</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Task Type:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.tasktype || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Sign-Off Type:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.signofftype || 'N/A'}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Status:</strong></label>
+            <p class="form-control-plaintext">
+              <span class="badge badge-{{vm.getStatusClass()}}" style="font-size: 1em;">{{vm.signOffData.status || 'N/A'}}</span>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label><strong>Created Date:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.created_at | date:'medium' || 'N/A'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Project Details Section -->
+  <div ng-if="vm.signOffData.project_details" class="card mt-3">
+    <div class="card-header bg-info text-white">
+      <h4 class="mb-0">Project Details</h4>
+    </div>
+    <div class="card-body">
+      <p class="form-control-plaintext" style="white-space: pre-wrap;">{{vm.signOffData.project_details}}</p>
+    </div>
+  </div>
+  
+  <!-- Observations, Out of Scope, Caveats Section -->
+  <div class="row mt-3">
+    <div class="col-md-4" ng-if="vm.signOffData.observations">
+      <div class="card">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="mb-0">Observations</h5>
+        </div>
+        <div class="card-body">
+          <p class="form-control-plaintext" style="white-space: pre-wrap;">{{vm.signOffData.observations}}</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4" ng-if="vm.signOffData.outofscope">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">Out Of Scope</h5>
+        </div>
+        <div class="card-body">
+          <p class="form-control-plaintext" style="white-space: pre-wrap;">{{vm.signOffData.outofscope}}</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4" ng-if="vm.signOffData.caveats">
+      <div class="card">
+        <div class="card-header bg-danger text-white">
+          <h5 class="mb-0">Caveats</h5>
+        </div>
+        <div class="card-body">
+          <p class="form-control-plaintext" style="white-space: pre-wrap;">{{vm.signOffData.caveats}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Additional Fields Section -->
+  <div class="card mt-3" ng-if="vm.signOffData.defect_filter_link || vm.signOffData.evidences || vm.signOffData.comments">
+    <div class="card-header bg-success text-white">
+      <h4 class="mb-0">Additional Information</h4>
+    </div>
+    <div class="card-body">
+      <div class="row" ng-if="vm.signOffData.defect_filter_link || vm.signOffData.evidences">
+        <div class="col-md-6" ng-if="vm.signOffData.defect_filter_link">
+          <div class="form-group">
+            <label><strong>Defect Filter Link:</strong></label>
+            <p class="form-control-plaintext">
+              <a href="{{vm.signOffData.defect_filter_link}}" target="_blank">{{vm.signOffData.defect_filter_link}}</a>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6" ng-if="vm.signOffData.evidences">
+          <div class="form-group">
+            <label><strong>Evidences:</strong></label>
+            <p class="form-control-plaintext">{{vm.signOffData.evidences}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div ng-if="vm.signOffData.comments">
+        <div class="form-group">
+          <label><strong>Sign-Off Comments:</strong></label>
+          <p class="form-control-plaintext" style="white-space: pre-wrap;">{{vm.signOffData.comments}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Test Cases Table -->
+  <div class="card mt-3" ng-if="vm.testCases && vm.testCases.length > 0">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Test Cases</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Test Type</th>
+              <th>Passed</th>
+              <th>Failed</th>
+              <th>Non-Executed</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="testCase in vm.testCases">
+              <td><strong>{{testCase.test_type}}</strong></td>
+              <td class="text-success">{{testCase.passed}}</td>
+              <td class="text-danger">{{testCase.failed}}</td>
+              <td class="text-warning">{{testCase['non-executed']}}</td>
+              <td><strong>{{testCase.total}}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Defects Table -->
+  <div class="card mt-3" ng-if="vm.defects && vm.defects.length > 0">
+    <div class="card-header bg-danger text-white">
+      <h4 class="mb-0">Defects</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Defect Type</th>
+              <th>Resolved</th>
+              <th>Deferred</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="defect in vm.defects">
+              <td><strong>{{defect.defect_type}}</strong></td>
+              <td class="text-success">{{defect.resolved}}</td>
+              <td class="text-warning">{{defect.deffered}}</td>
+              <td><strong>{{defect.total}}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- No Data Message -->
+  <div ng-if="!vm.loading && !vm.signOffData" class="alert alert-warning text-center">
+    <h4>No sign-off details found</h4>
+  </div>
+</div>

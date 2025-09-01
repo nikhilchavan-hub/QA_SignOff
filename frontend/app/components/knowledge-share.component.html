@@ -1,0 +1,253 @@
+<!-- Knowledge Share Page -->
+<style>
+  .search-highlight {
+    background-color: #ffeb3b;
+    padding: 1px 2px;
+    border-radius: 2px;
+  }
+  
+  .search-bar {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .search-results-info {
+    color: #6c757d;
+    font-size: 0.875rem;
+  }
+  
+  .hover-title {
+    cursor: help;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .hover-title .tooltip-text {
+    visibility: hidden;
+    background-color: #333;
+    color: white;
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px 12px;
+    position: fixed;
+    z-index: 9999;
+    max-width: 350px;
+    min-width: 200px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.4;
+    word-wrap: break-word;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: normal;
+    pointer-events: none;
+  }
+  
+  .hover-title:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .hover-title .tooltip-text::after {
+    content: "";
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+  }
+  
+  /* Arrow pointing up (tooltip below element) */
+  .hover-title .tooltip-text.tooltip-bottom::after {
+    top: -10px;
+    left: 20px;
+    border-color: transparent transparent #333 transparent;
+  }
+  
+  /* Arrow pointing down (tooltip above element) */
+  .hover-title .tooltip-text.tooltip-top::after {
+    bottom: -10px;
+    left: 20px;
+    border-color: #333 transparent transparent transparent;
+  }
+  
+  /* Arrow pointing right (tooltip to the left of element) */
+  .hover-title .tooltip-text.tooltip-left::after {
+    top: 50%;
+    right: -10px;
+    margin-top: -5px;
+    border-color: transparent transparent transparent #333;
+  }
+  
+  /* Arrow pointing left (tooltip to the right of element) */
+  .hover-title .tooltip-text.tooltip-right::after {
+    top: 50%;
+    left: -10px;
+    margin-top: -5px;
+    border-color: transparent #333 transparent transparent;
+  }
+</style>
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Knowledge Share</h2>
+    <div>
+      <button class="btn btn-primary" ng-click="vm.openAddTopicModal()">Add Topic</button>
+      <button class="btn btn-secondary ml-2" ng-click="vm.goBack()">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Search by title or author..." 
+                 ng-model="vm.searchTerm" ng-change="vm.searchItems()" ng-keyup="vm.searchItems()">
+          <div class="input-group-append" ng-if="vm.searchTerm">
+            <button class="btn btn-outline-secondary" type="button" ng-click="vm.clearSearch()" title="Clear search">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center justify-content-end">
+        <span class="search-results-info">
+          <i class="fas fa-info-circle mr-1"></i>
+          Showing <strong>{{vm.filteredItems.length}}</strong> of <strong>{{vm.knowledgeItems.length}}</strong> items
+          <span ng-if="vm.searchTerm"> for "<em>{{vm.searchTerm}}</em>"</span>
+          <br>
+          <small class="text-muted">
+            <i class="fas fa-lightbulb mr-1"></i>
+            Search filters by title and author only
+          </small>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <div ng-if="vm.loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  
+  <table class="table table-bordered table-hover" ng-if="!vm.loading">
+    <thead class="thead-dark">
+      <tr>
+        <th style="width: 80px;">No</th>
+        <th>
+          <i class="fas fa-search mr-1 text-warning" title="Searchable"></i>
+          Title
+        </th>
+        <th style="width: 200px;">
+          <i class="fas fa-search mr-1 text-warning" title="Searchable"></i>
+          Author
+        </th>
+        <th style="width: 150px;">Upload Date</th>
+        <th style="width: 120px;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in vm.filteredItems track by item.id">
+        <td>{{$index + 1}}</td>
+        <td>
+          <span class="hover-title" 
+                ng-mouseenter="vm.showTooltip($event, item.description)" 
+                ng-mouseleave="vm.hideTooltip($event)">
+            <strong ng-bind-html="vm.highlightSearch(item.subject, vm.searchTerm)">{{item.subject}}</strong>
+            <span class="tooltip-text">{{item.description}}</span>
+          </span>
+        </td>
+        <td ng-bind-html="vm.highlightSearch(item.author_name, vm.searchTerm)">{{item.author_name}}</td>
+        <td>{{vm.formatDate(item.created_at)}}</td>
+        <td>
+          <button class="btn btn-info btn-sm" ng-click="vm.downloadFile(item)" ng-if="item.uploadeddocument">
+            <i class="fas fa-download"></i> Download
+          </button>
+          <span ng-if="!item.uploadeddocument" class="text-muted">No file</span>
+        </td>
+      </tr>
+      <tr ng-if="vm.filteredItems.length === 0 && !vm.loading" class="no-results">
+        <td colspan="5" class="text-center py-4">
+          <div ng-if="vm.searchTerm" class="text-muted">
+            <i class="fas fa-search fa-2x mb-2"></i>
+            <p class="mb-1"><strong>No items found matching "{{vm.searchTerm}}"</strong></p>
+            <p class="small">Search looked in title and author fields. Try adjusting your search terms or <a href="#" ng-click="vm.clearSearch()">clear the search</a></p>
+          </div>
+          <div ng-if="!vm.searchTerm" class="text-muted">
+            <i class="fas fa-inbox fa-2x mb-2"></i>
+            <p><strong>No knowledge share items found</strong></p>
+            <p class="small">Be the first to share knowledge by adding a new topic!</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Add Topic Modal -->
+<div class="modal fade" id="addTopicModal" tabindex="-1" role="dialog" aria-labelledby="addTopicModalLabel" aria-hidden="true" 
+     ng-show="vm.showModal" style="display: block;" ng-style="{'display': vm.showModal ? 'block' : 'none'}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTopicModalLabel">Add New Topic</h5>
+        <button type="button" class="close" ng-click="vm.closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="addTopicForm" ng-submit="vm.submitTopic()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input type="text" class="form-control" id="subject" ng-model="vm.newTopic.subject" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea class="form-control" id="description" rows="4" 
+                      ng-model="vm.newTopic.description" 
+                      maxlength="1000" 
+                      required></textarea>
+            <small class="form-text" ng-class="{'text-danger': vm.getDescriptionLength() > 900, 'text-muted': vm.getDescriptionLength() <= 900}">
+              {{vm.getDescriptionLength()}}/1000 characters
+              <span ng-if="vm.getDescriptionLength() > 900" class="text-warning"> (approaching limit)</span>
+            </small>
+          </div>
+          
+          <div class="form-group">
+            <label for="fileUpload">Upload Document</label>
+            <input type="file" class="form-control-file" id="fileUpload" 
+                   accept=".zip,.pdf,.docx,.csv,.xlsx,.xls,.png,.jpg,.jpeg,.mp4,.mov,.avi,.mkv,.wmv,.flv,.webm,.3gp"
+                   onchange="angular.element(this).scope().vm.handleFileSelect(this)">
+            <small class="form-text text-muted">
+              Accepted formats: .zip, .pdf, .docx, .csv, .xlsx, .xls, .png, .jpg, .jpeg, .mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .3gp
+            </small>
+            <div ng-if="vm.selectedFile" class="mt-2">
+              <small class="text-success">
+                <i class="fas fa-file"></i> Selected: {{vm.selectedFile.name}} ({{vm.formatFileSize(vm.selectedFile.size)}})
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" ng-click="vm.closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" ng-disabled="vm.submitting || !addTopicForm.$valid">
+            {{vm.submitting ? 'Uploading...' : 'Add Topic'}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade show" ng-if="vm.showModal" ng-click="vm.closeModal()" style="z-index: 1040;"></div>

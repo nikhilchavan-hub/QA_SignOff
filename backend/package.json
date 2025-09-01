@@ -1,0 +1,25 @@
+{
+  "name": "qa-signoff-backend",
+  "version": "1.0.0",
+  "description": "QA Sign Off Process Automation Backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test-email": "node email-test.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "joi": "^17.9.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "nodemailer": "^6.9.3",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

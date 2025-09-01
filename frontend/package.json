@@ -1,0 +1,13 @@
+{
+  "name": "qa-signoff-frontend",
+  "version": "1.0.0",
+  "description": "QA Sign Off Process Automation Frontend",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -c-1",
+    "serve": "npx http-server . -p 8080 -c-1",
+    "dev": "npx http-server . -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.0"
+  }
+}
