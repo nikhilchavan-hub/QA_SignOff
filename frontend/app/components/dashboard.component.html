@@ -1,41 +1,133 @@
-<!-- Dashboard Page -->
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>QA Sign Off Dashboard</h2>
-    <div>
-      <button class="btn btn-primary" ng-click="vm.goToNewSignOff()">New Sign Off</button>
-      <button class="btn btn-success ml-2" ng-click="vm.goToKnowledgeShare()">Knowledge Share</button>
-      <button class="btn btn-secondary ml-2" ng-click="vm.logout()">Logout</button>
+<!-- Dashboard Page with Momentum Theme -->
+<div class="momentum-app-container">
+  <!-- Header Navigation -->
+  <nav class="momentum-header">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="momentum-brand">
+          <i class="fas fa-check-circle"></i>
+          <span class="ml-2">QA Knowledge Management</span>
+        </div>
+       <!--<div class="momentum-nav-actions">
+          <button class="btn btn-outline-light btn-sm" ng-click="vm.logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>--> 
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Main Content Area -->
+  <main class="momentum-main-content">
+    <div class="container-fluid">
+      <div class="momentum-page-container">
+  <!-- Page Header -->
+  <div class="momentum-page-header">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h1 class="momentum-page-title">
+          <i class="fas fa-tachometer-alt momentum-icon"></i>
+          QA Sign Off Dashboard
+        </h1>
+      </div>
+      <div class="col-md-6 text-right">
+        <div class="momentum-btn-group">
+          <button class="btn momentum-btn-primary" ng-click="vm.goToNewSignOff()">
+            <i class="fas fa-plus"></i> New Sign Off
+          </button>
+          <button class="btn momentum-btn-secondary ml-2" ng-click="vm.goToKnowledgeShare()">
+            <i class="fas fa-share-alt"></i> Knowledge Share
+          </button>
+          <button class="btn momentum-btn-outline ml-2" ng-click="vm.logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <input type="text" class="form-control" placeholder="Search..." ng-model="vm.searchText" ng-change="vm.search()" />
-    </div>
-    <div class="col-md-6">
-      <p class="text-right">Welcome, {{vm.currentUser.firstname}} {{vm.currentUser.lastname}}</p>
+  <!-- Controls Section -->
+  <div class="momentum-controls-section">
+    <div class="row align-items-end">
+      <div class="col-md-4">
+        <div class="momentum-form-group">
+          <label class="momentum-label">Search Projects</label>
+          <div class="momentum-input-group">
+            <i class="fas fa-search momentum-input-icon"></i>
+            <input type="text" class="form-control momentum-input" placeholder="Search by project name..." ng-model="vm.searchText" ng-change="vm.search()" />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="momentum-user-info">
+          <div class="momentum-welcome-message">
+            <i class="fas fa-user-circle"></i>
+            Welcome, {{vm.currentUser.firstname}} {{vm.currentUser.lastname}}
+          </div>
+          <div class="momentum-record-info" ng-if="vm.records.length > 0">
+            Showing {{vm.records.length}} records
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
-  <table class="table table-bordered table-hover">
-    <thead class="thead-dark">
-      <tr>
-        <th ng-repeat="col in vm.columns">{{col.label}}</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="row in vm.records">
-        <td ng-repeat="col in vm.columns">{{row[col.key]}}</td>
-        <td>
-          <button class="btn btn-info btn-sm" ng-click="vm.view(row)">View</button>
-          <button class="btn btn-warning btn-sm ml-1" ng-if="row.user_id==vm.currentUser.userid" ng-click="vm.edit(row)">Edit</button>
-        </td>
-      </tr>
-      <tr ng-if="vm.records.length === 0">
-        <td colspan="{{vm.columns.length + 1}}" class="text-center">No records found</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Loading indicator -->
+  <div ng-if="vm.loading" class="momentum-loading-state">
+    <div class="momentum-spinner">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <p class="momentum-loading-text">Loading dashboard data...</p>
+  </div>
+  
+  <!-- Data table -->
+  <div ng-if="!vm.loading" class="momentum-table-container">
+    <table class="table momentum-table">
+      <thead class="momentum-table-header">
+        <tr>
+          <th ng-repeat="col in vm.columns" class="momentum-th">{{col.label}}</th>
+          <th class="momentum-th">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="momentum-table-body">
+        <tr ng-repeat="row in vm.records" class="momentum-table-row">
+          <td ng-repeat="col in vm.columns" class="momentum-td">
+            <span ng-if="col.key === 'created_at'" class="momentum-date">{{row[col.key] | date:'dd/MM/yyyy'}}</span>
+            <span ng-if="col.key === 'status'">
+              <span class="momentum-badge" ng-class="{'momentum-badge-success': row[col.key] === 'Complete', 'momentum-badge-warning': row[col.key] === 'In Progress', 'momentum-badge-secondary': row[col.key] !== 'Complete' && row[col.key] !== 'In Progress'}">
+                {{row[col.key] || 'N/A'}}
+              </span>
+            </span>
+            <span ng-if="col.key !== 'created_at' && col.key !== 'status'" class="momentum-cell-content">{{row[col.key] || 'N/A'}}</span>
+          </td>
+          <td class="momentum-td momentum-actions-cell">
+            <div class="momentum-btn-group-sm">
+              <button class="btn momentum-btn-info" ng-click="vm.view(row)" title="View Details">
+                <i class="fas fa-eye"></i> View
+              </button>
+              <button class="btn momentum-btn-warning ml-1" ng-if="row.user_id==vm.currentUser.userid" ng-click="vm.edit(row)" title="Edit Sign Off">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr ng-if="vm.records.length === 0">
+          <td colspan="{{vm.columns.length + 1}}" class="momentum-empty-state">
+            <div class="momentum-empty-content">
+              <i class="fas fa-search momentum-empty-icon"></i>
+              <h4 class="momentum-empty-title">No records found</h4>
+              <p class="momentum-empty-message" ng-if="vm.searchText">Try adjusting your search criteria</p>
+              <p class="momentum-empty-message" ng-if="!vm.searchText">Get started by creating your first sign off</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    </div>
+  </main>
 </div>
+
+

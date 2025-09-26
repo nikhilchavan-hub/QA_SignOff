@@ -1,54 +1,105 @@
-<!-- Signup & Login Page -->
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header text-center">
-          <h3>QA Sign Off - Login / Signup</h3>
+<!-- Signup & Login Page with Momentum Theme -->
+<div class="momentum-auth-container">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+      <div class="momentum-auth-card">
+        <div class="momentum-auth-header">
+          <div class="momentum-auth-logo">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="momentum-auth-title">QA Knowledge Management</h3>
+          <p class="momentum-auth-subtitle">Quality Assurance Management System</p>
         </div>
-        <div class="card-body">
+        <div class="momentum-auth-body">
           <!-- Login Form -->
-          <form name="loginForm" ng-submit="vm.login()" ng-if="!vm.showSignup">
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" class="form-control" ng-model="vm.loginData.email" required />
+          <form name="loginForm" ng-submit="vm.login()" ng-if="!vm.showSignup" class="momentum-auth-form">
+            <div class="momentum-form-group">
+              <label class="momentum-label">
+                <i class="fas fa-envelope"></i>
+                Email Address
+              </label>
+              <input type="email" class="form-control momentum-input" ng-model="vm.loginData.email" 
+                     required placeholder="Enter your email address" />
             </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" class="form-control" ng-model="vm.loginData.password" required />
+            <div class="momentum-form-group">
+              <label class="momentum-label">
+                <i class="fas fa-lock"></i>
+                Password
+              </label>
+              <input type="password" class="form-control momentum-input" ng-model="vm.loginData.password" 
+                     required placeholder="Enter your password" />
             </div>
-            <button type="submit" class="btn btn-primary btn-block" ng-disabled="vm.loading">
+            <button type="submit" class="btn momentum-btn-primary momentum-auth-btn" ng-disabled="vm.loading">
+              <i class="fas" ng-class="vm.loading ? 'fa-spinner fa-spin' : 'fa-sign-in-alt'"></i>
               {{vm.loading ? 'Logging in...' : 'Login'}}
             </button>
-            <button type="button" class="btn btn-link" ng-click="vm.showSignup=true">Sign Up</button>
+            <div class="momentum-auth-switch">
+              <span>Don't have an account?</span>
+              <button type="button" class="btn momentum-btn-link" ng-click="vm.showSignup=true">
+                Sign Up
+              </button>
+            </div>
           </form>
           
           <!-- Signup Form -->
-          <form name="signupForm" ng-submit="vm.signup()" ng-if="vm.showSignup">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" class="form-control" ng-model="vm.signupData.firstname" required />
+          <form name="signupForm" ng-submit="vm.signup()" ng-if="vm.showSignup" class="momentum-auth-form">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="momentum-form-group">
+                  <label class="momentum-label">
+                    <i class="fas fa-user"></i>
+                    First Name
+                  </label>
+                  <input type="text" class="form-control momentum-input" ng-model="vm.signupData.firstname" 
+                         required placeholder="Enter first name" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="momentum-form-group">
+                  <label class="momentum-label">
+                    <i class="fas fa-user"></i>
+                    Last Name
+                  </label>
+                  <input type="text" class="form-control momentum-input" ng-model="vm.signupData.lastname" 
+                         required placeholder="Enter last name" />
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" class="form-control" ng-model="vm.signupData.lastname" required />
+            <div class="momentum-form-group">
+              <label class="momentum-label">
+                <i class="fas fa-envelope"></i>
+                Email Address
+              </label>
+              <input type="email" class="form-control momentum-input" ng-model="vm.signupData.email" 
+                     required placeholder="Enter your email address" />
             </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" class="form-control" ng-model="vm.signupData.email" required />
+            <div class="momentum-form-group">
+              <label class="momentum-label">
+                <i class="fas fa-lock"></i>
+                Password
+              </label>
+              <input type="password" class="form-control momentum-input" ng-model="vm.signupData.password" 
+                     required placeholder="Create a password" />
             </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" class="form-control" ng-model="vm.signupData.password" required />
+            <div class="momentum-form-group">
+              <label class="momentum-label">
+                <i class="fas fa-lock"></i>
+                Confirm Password
+              </label>
+              <input type="password" class="form-control momentum-input" ng-model="vm.signupData.confirmPassword" 
+                     required placeholder="Confirm your password" />
             </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input type="password" class="form-control" ng-model="vm.signupData.confirmPassword" required />
-            </div>
-            <button type="submit" class="btn btn-success btn-block" ng-disabled="vm.loading">
-              {{vm.loading ? 'Signing up...' : 'Sign Up'}}
+            <button type="submit" class="btn momentum-btn-primary momentum-auth-btn" ng-disabled="vm.loading">
+              <i class="fas" ng-class="vm.loading ? 'fa-spinner fa-spin' : 'fa-user-plus'"></i>
+              {{vm.loading ? 'Signing up...' : 'Create Account'}}
             </button>
-            <button type="button" class="btn btn-link" ng-click="vm.showSignup=false">Back to Login</button>
+            <div class="momentum-auth-switch">
+              <span>Already have an account?</span>
+              <button type="button" class="btn momentum-btn-link" ng-click="vm.showSignup=false">
+                Back to Login
+              </button>
+            </div>
           </form>
         </div>
       </div>

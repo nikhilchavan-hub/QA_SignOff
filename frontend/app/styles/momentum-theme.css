@@ -1,0 +1,1739 @@
+/* Momentum Corporate Theme - QA Sign Off Application */
+
+/* ==========================================================================
+   CSS Variables - Corporate Color Palette
+   ========================================================================== */
+:root {
+  /* Primary Brand Colors - Momentum Corporate */
+  --momentum-primary: #1f4e79;
+  --momentum-primary-light: #2e5984;
+  --momentum-primary-dark: #1a3f63;
+  --momentum-primary-hover: #244b7a;
+  
+  /* Secondary Colors */
+  --momentum-secondary: #0078d4;
+  --momentum-secondary-light: #106ebe;
+  --momentum-secondary-dark: #005a9e;
+  
+  /* Accent Colors */
+  --momentum-accent-blue: #00bcf2;
+  --momentum-accent-green: #16c60c;
+  --momentum-accent-orange: #ff8c00;
+  --momentum-accent-red: #d13438;
+  
+  /* Neutral Colors */
+  --momentum-gray-50: #faf9f8;
+  --momentum-gray-100: #f3f2f1;
+  --momentum-gray-200: #edebe9;
+  --momentum-gray-300: #e1dfdd;
+  --momentum-gray-400: #d2d0ce;
+  --momentum-gray-500: #b3b0ad;
+  --momentum-gray-600: #979593;
+  --momentum-gray-700: #605e5c;
+  --momentum-gray-800: #323130;
+  --momentum-gray-900: #201f1e;
+  
+  /* Status Colors */
+  --status-success: #107c10;
+  --status-warning: #ff8c00;
+  --status-error: #d13438;
+  --status-info: #0078d4;
+  
+  /* Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #faf9f8;
+  --bg-sidebar: #1f4e79;
+  --bg-header: #f3f2f1;
+  
+  /* Text Colors */
+  --text-primary: #323130;
+  --text-secondary: #605e5c;
+  --text-muted: #979593;
+  --text-inverse: #ffffff;
+  
+  /* Spacing Scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-xxxl: 48px;
+  
+  /* Typography */
+  --font-family-primary: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+  --font-family-monospace: 'Consolas', 'Monaco', 'Courier New', monospace;
+  
+  /* Font Sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-xxl: 24px;
+  --font-size-xxxl: 32px;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Border Radius */
+  --border-radius-sm: 2px;
+  --border-radius-md: 4px;
+  --border-radius-lg: 6px;
+  --border-radius-xl: 8px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 0.1s ease-in-out;
+  --transition-normal: 0.2s ease-in-out;
+  --transition-slow: 0.3s ease-in-out;
+}
+
+/* ==========================================================================
+   Global Styles
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Enhanced Corporate Application Styling
+   ========================================================================== */
+
+/* Application Layout */
+.momentum-app-container {
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+  font-family: var(--font-family-primary);
+}
+
+/* Header Navigation */
+.momentum-header {
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+  border-bottom: 3px solid var(--momentum-accent-blue);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-md) 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.momentum-brand {
+  color: var(--text-inverse);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+}
+
+.momentum-brand i {
+  color: var(--momentum-accent-blue);
+  margin-right: var(--space-sm);
+  font-size: var(--font-size-xxl);
+}
+
+.momentum-nav-actions .btn {
+  border: 2px solid var(--momentum-accent-blue);
+  color: var(--text-inverse);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-normal);
+}
+
+.momentum-nav-actions .btn:hover {
+  background-color: var(--momentum-accent-blue);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Main Content */
+.momentum-main-content {
+  padding: var(--space-xxl) 0;
+  min-height: calc(100vh - 80px);
+}
+
+/* Page Container */
+.momentum-page-container {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-xxl);
+  margin-bottom: var(--space-xxl);
+  border: 1px solid var(--momentum-gray-200);
+}
+
+/* Page Header */
+.momentum-page-header {
+  border-bottom: 2px solid var(--momentum-gray-200);
+  padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-xxl);
+  background: linear-gradient(90deg, transparent 0%, var(--momentum-gray-50) 100%);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+}
+
+.momentum-page-title {
+  color: var(--momentum-primary);
+  font-size: var(--font-size-xxxl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.momentum-icon {
+  color: var(--momentum-accent-blue);
+  margin-right: var(--space-md);
+  font-size: var(--font-size-xxl);
+  text-shadow: none;
+}
+
+/* Enhanced Button Styling */
+.momentum-btn-group {
+  display: block;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.momentum-btn-primary {
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+  border: 2px solid var(--momentum-primary);
+  color: var(--text-inverse);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+
+.momentum-btn-primary:hover {
+  background: linear-gradient(135deg, var(--momentum-primary-hover) 0%, var(--momentum-primary) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--momentum-accent-blue);
+}
+
+.momentum-btn-secondary {
+  background: linear-gradient(135deg, var(--momentum-secondary) 0%, var(--momentum-secondary-dark) 100%);
+  border: 2px solid var(--momentum-secondary);
+  color: var(--text-inverse);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.momentum-btn-secondary:hover {
+  background: linear-gradient(135deg, var(--momentum-secondary-light) 0%, var(--momentum-secondary) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.momentum-btn-outline {
+  background: transparent;
+  border: 2px solid var(--momentum-primary);
+  color: var(--momentum-primary);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-normal);
+}
+
+.momentum-btn-outline:hover {
+  background-color: var(--momentum-primary);
+  color: var(--text-inverse);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Controls Section */
+.momentum-controls-section {
+  background: linear-gradient(135deg, var(--momentum-gray-50) 0%, var(--bg-primary) 100%);
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xxl);
+  border: 2px solid var(--momentum-gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+/* User Info Section */
+.momentum-user-info {
+  text-align: right;
+}
+
+.momentum-welcome-message {
+  color: var(--momentum-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.momentum-welcome-message i {
+  color: var(--momentum-accent-blue);
+  margin-right: var(--space-sm);
+  font-size: var(--font-size-xl);
+}
+
+.momentum-record-info {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+}
+
+/* Enhanced Table Styling */
+.momentum-table-container {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 2px solid var(--momentum-gray-200);
+}
+
+.momentum-table {
+  margin: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.momentum-table-header {
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+}
+
+.momentum-th {
+  color: var(--text-inverse);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-lg);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  position: relative;
+}
+
+.momentum-th:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.momentum-searchable-icon {
+  color: var(--momentum-accent-orange);
+  margin-right: var(--space-xs);
+  font-size: var(--font-size-xs);
+}
+
+.momentum-table-body {
+  background-color: var(--bg-primary);
+}
+
+.momentum-table-row {
+  transition: all var(--transition-fast);
+  border-bottom: 1px solid var(--momentum-gray-200);
+}
+
+.momentum-table-row:hover {
+  background: linear-gradient(90deg, var(--momentum-gray-50) 0%, var(--bg-primary) 100%);
+  transform: translateX(2px);
+  box-shadow: inset 4px 0 0 var(--momentum-accent-blue);
+}
+
+.momentum-td {
+  padding: var(--space-lg);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  border: none;
+  vertical-align: middle;
+}
+
+.momentum-row-number {
+  font-weight: var(--font-weight-bold);
+  color: var(--momentum-primary);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  background-color: var(--momentum-gray-50);
+  width: 50px;
+}
+
+/* Enhanced Badge Styling */
+.momentum-badge {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.momentum-badge-success {
+  background: linear-gradient(135deg, var(--status-success) 0%, #0f6e0f 100%);
+  color: var(--text-inverse);
+  border: 2px solid var(--status-success);
+}
+
+.momentum-badge-warning {
+  background: linear-gradient(135deg, var(--status-warning) 0%, #e67700 100%);
+  color: var(--text-inverse);
+  border: 2px solid var(--status-warning);
+}
+
+.momentum-badge-secondary {
+  background: linear-gradient(135deg, var(--momentum-gray-500) 0%, var(--momentum-gray-600) 100%);
+  color: var(--text-inverse);
+  border: 2px solid var(--momentum-gray-500);
+}
+
+/* Action Buttons */
+.momentum-btn-group-sm {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.momentum-btn-info {
+  background: linear-gradient(135deg, var(--status-info) 0%, #006bb3 100%);
+  border: 1px solid var(--status-info);
+  color: var(--text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+}
+
+.momentum-btn-info:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #0088ff 0%, var(--status-info) 100%);
+}
+
+.momentum-btn-warning {
+  background: linear-gradient(135deg, var(--status-warning) 0%, #e67700 100%);
+  border: 1px solid var(--status-warning);
+  color: var(--text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+}
+
+.momentum-btn-warning:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #ffaa00 0%, var(--status-warning) 100%);
+}
+
+/* Authentication Styling */
+.momentum-auth-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 50%, var(--momentum-secondary) 100%);
+  display: flex;
+  align-items: center;
+  padding: var(--space-xxl) 15px; /* Add Bootstrap-compatible padding */
+  box-sizing: border-box;
+}
+
+.momentum-auth-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  border: 3px solid var(--momentum-accent-blue);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Additional Login Page Fixes
+   ========================================================================== */
+
+/* Ensure proper full-height layout for auth container */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Auth container should take full viewport */
+.momentum-auth-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: var(--space-xxl) 15px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Fix Bootstrap container within auth */
+.momentum-auth-container .container-fluid {
+  width: 100%;
+  max-width: none;
+  padding-right: 0;
+  padding-left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure auth card is properly centered and sized */
+.momentum-auth-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  border: 3px solid var(--momentum-accent-blue);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Fix auth header spacing */
+.momentum-auth-header {
+  background: linear-gradient(135deg, var(--momentum-gray-50) 0%, var(--bg-primary) 100%);
+  padding: var(--space-xxl);
+  text-align: center;
+  border-bottom: 2px solid var(--momentum-gray-200);
+}
+
+.momentum-auth-body {
+  padding: var(--space-xxl);
+}
+
+/* Ensure form elements don't inherit conflicting styles */
+.momentum-auth-form {
+  margin: 0;
+  width: 100%;
+}
+
+/* Fix any margin/padding conflicts */
+.momentum-auth-form .momentum-form-group {
+  margin-bottom: var(--space-lg);
+  width: 100%;
+}
+
+.momentum-auth-form .momentum-form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Fix button width for auth page */
+.momentum-auth-btn {
+  width: 100%;
+  padding: var(--space-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+/* Auth switch section */
+.momentum-auth-switch {
+  text-align: center;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--momentum-gray-200);
+  color: var(--text-secondary);
+  margin-top: var(--space-lg);
+}
+
+/* Override any Bootstrap text utilities */
+.momentum-auth-title {
+  color: var(--momentum-primary) !important;
+  font-size: var(--font-size-xxl) !important;
+  font-weight: var(--font-weight-bold) !important;
+  margin: 0 0 var(--space-sm) 0 !important;
+}
+
+.momentum-auth-subtitle {
+  color: var(--text-secondary) !important;
+  font-size: var(--font-size-sm) !important;
+  margin: 0 !important;
+  font-style: italic;
+}
+
+/* Fix header nav buttons for other pages */
+.momentum-header .momentum-nav-actions .btn {
+  border: 2px solid var(--momentum-accent-blue);
+  color: var(--text-inverse);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-normal);
+  background: transparent;
+}
+
+.momentum-header .momentum-nav-actions .btn:hover {
+  background-color: var(--momentum-accent-blue);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: var(--text-inverse);
+}
+
+/* Fix any z-index issues */
+.momentum-header {
+  z-index: 1030;
+}
+
+.momentum-modal-backdrop {
+  z-index: 1040;
+}
+
+.modal {
+  z-index: 1050;
+}
+
+/* Ensure tooltips appear above modals */
+.momentum-tooltip {
+  z-index: 1060;
+}
+
+/* Fix for small screens */
+@media (max-width: 768px) {
+  .momentum-auth-container {
+    padding: var(--space-lg) 10px;
+  }
+  
+  .momentum-auth-header,
+  .momentum-auth-body {
+    padding: var(--space-lg) !important;
+  }
+  
+  .momentum-auth-title {
+    font-size: var(--font-size-xl) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .momentum-auth-container {
+    padding: var(--space-md) 5px;
+  }
+  
+  .momentum-auth-card {
+    border-radius: var(--border-radius-lg);
+    border-width: 2px;
+  }
+  
+  .momentum-auth-header,
+  .momentum-auth-body {
+    padding: var(--space-md) !important;
+  }
+}
+
+/* Fix input focus states specifically for auth forms */
+.momentum-auth-form .momentum-input:focus {
+  border-color: var(--momentum-accent-blue) !important;
+  box-shadow: 0 0 0 3px rgba(0, 188, 242, 0.1) !important;
+  outline: none !important;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  margin: 0 0 var(--space-md) 0;
+  color: var(--text-primary);
+}
+
+h1 { font-size: var(--font-size-xxxl); }
+h2 { font-size: var(--font-size-xxl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+h5 { font-size: var(--font-size-base); }
+h6 { font-size: var(--font-size-sm); }
+
+p {
+  margin: 0 0 var(--space-md) 0;
+  line-height: 1.6;
+}
+
+.text-primary { color: var(--momentum-primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-inverse { color: var(--text-inverse) !important; }
+
+/* ==========================================================================
+   Layout Components
+   ========================================================================== */
+
+/* Container */
+.momentum-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* Header */
+.momentum-header {
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+  color: var(--text-inverse);
+  padding: var(--space-lg) 0;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.momentum-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--momentum-accent-blue) 0%, var(--momentum-accent-green) 100%);
+}
+
+.momentum-header .navbar-brand {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-inverse) !important;
+  text-decoration: none;
+}
+
+.momentum-header .navbar-brand:hover {
+  color: var(--momentum-accent-blue) !important;
+}
+
+/* Main Content Area */
+.momentum-main {
+  padding: var(--space-xl) 0;
+  min-height: calc(100vh - 200px);
+}
+
+/* ==========================================================================
+   Card Components
+   ========================================================================== */
+.momentum-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--momentum-gray-200);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-xl);
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal);
+}
+
+.momentum-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.momentum-card-header {
+  background: linear-gradient(135deg, var(--momentum-gray-50) 0%, var(--momentum-gray-100) 100%);
+  border-bottom: 2px solid var(--momentum-primary);
+  padding: var(--space-lg) var(--space-xl);
+  position: relative;
+}
+
+.momentum-card-header h3 {
+  margin: 0;
+  color: var(--momentum-primary);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.momentum-card-header .subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.momentum-card-body {
+  padding: var(--space-xl);
+}
+
+.momentum-card-footer {
+  background: var(--momentum-gray-50);
+  border-top: 1px solid var(--momentum-gray-200);
+  padding: var(--space-lg) var(--space-xl);
+}
+
+/* ==========================================================================
+   Button Components
+   ========================================================================== */
+.momentum-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.momentum-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.momentum-btn-primary {
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.momentum-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--momentum-primary-hover) 0%, var(--momentum-primary) 100%);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.momentum-btn-secondary {
+  background: var(--momentum-secondary);
+  color: var(--text-inverse);
+}
+
+.momentum-btn-secondary:hover:not(:disabled) {
+  background: var(--momentum-secondary-dark);
+}
+
+.momentum-btn-success {
+  background: var(--momentum-accent-green);
+  color: var(--text-inverse);
+}
+
+.momentum-btn-outline {
+  background: transparent;
+  color: var(--momentum-primary);
+  border: 2px solid var(--momentum-primary);
+}
+
+.momentum-btn-outline:hover:not(:disabled) {
+  background: var(--momentum-primary);
+  color: var(--text-inverse);
+}
+
+.momentum-btn-sm {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-xs);
+}
+
+.momentum-btn-lg {
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--font-size-base);
+}
+
+/* ==========================================================================
+   Form Components
+   ========================================================================== */
+.momentum-form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.momentum-form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.momentum-form-control {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--momentum-gray-300);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-primary);
+  background: var(--bg-primary);
+  transition: all var(--transition-fast);
+}
+
+.momentum-form-control:focus {
+  outline: none;
+  border-color: var(--momentum-primary);
+  box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.1);
+}
+
+.momentum-form-control::placeholder {
+  color: var(--text-muted);
+}
+
+.momentum-input-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.momentum-input-group-prepend {
+  background: var(--momentum-gray-100);
+  border: 2px solid var(--momentum-gray-300);
+  border-right: none;
+  border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+}
+
+.momentum-input-group .momentum-form-control {
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  border-left: none;
+}
+
+/* ==========================================================================
+   Table Components
+   ========================================================================== */
+.momentum-table-wrapper {
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.momentum-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.momentum-table thead th {
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+  color: var(--text-inverse);
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.momentum-table tbody td {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--momentum-gray-200);
+  vertical-align: middle;
+}
+
+.momentum-table tbody tr:hover {
+  background: var(--momentum-gray-50);
+}
+
+.momentum-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   Badge Components
+   ========================================================================== */
+.momentum-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-xl);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.momentum-badge-success {
+  background: rgba(16, 124, 16, 0.1);
+  color: var(--status-success);
+  border: 1px solid rgba(16, 124, 16, 0.2);
+}
+
+.momentum-badge-warning {
+  background: rgba(255, 140, 0, 0.1);
+  color: var(--status-warning);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.momentum-badge-error {
+  background: rgba(209, 52, 56, 0.1);
+  color: var(--status-error);
+  border: 1px solid rgba(209, 52, 56, 0.2);
+}
+
+.momentum-badge-info {
+  background: rgba(0, 120, 212, 0.1);
+  color: var(--status-info);
+  border: 1px solid rgba(0, 120, 212, 0.2);
+}
+
+.momentum-badge-primary {
+  background: rgba(31, 78, 121, 0.1);
+  color: var(--momentum-primary);
+  border: 1px solid rgba(31, 78, 121, 0.2);
+}
+
+/* Pagination components removed */
+
+.momentum-page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--momentum-gray-300);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.momentum-page-btn:hover:not(:disabled) {
+  background: var(--momentum-primary);
+  color: var(--text-inverse);
+  border-color: var(--momentum-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.momentum-page-btn.active {
+  background: var(--momentum-primary);
+  color: var(--text-inverse);
+  border-color: var(--momentum-primary);
+}
+
+.momentum-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Search and Filter Components
+   ========================================================================== */
+
+.momentum-search-section {
+  background: linear-gradient(135deg, var(--momentum-gray-50) 0%, var(--bg-primary) 100%);
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xxl);
+  border: 2px solid var(--momentum-gray-200);
+  box-shadow: var(--shadow-md);
+}
+
+.momentum-search-results-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-sm) 0;
+}
+
+.momentum-info-card {
+  background-color: var(--bg-primary);
+  border: 2px solid var(--momentum-accent-blue);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.momentum-info-icon {
+  color: var(--momentum-accent-blue);
+  font-size: var(--font-size-lg);
+}
+
+.momentum-info-content {
+  text-align: left;
+}
+
+.momentum-info-stats {
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-xs);
+}
+
+.momentum-search-term {
+  color: var(--momentum-accent-orange);
+  font-weight: var(--font-weight-bold);
+}
+
+.momentum-info-hint {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.momentum-info-hint i {
+  color: var(--momentum-accent-orange);
+}
+
+/* Enhanced Input Styling */
+.momentum-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.momentum-input-icon {
+  position: absolute;
+  left: var(--space-md);
+  color: var(--momentum-primary);
+  font-size: var(--font-size-base);
+  z-index: 2;
+}
+
+.momentum-input {
+  /*padding-left: var(--space-xxxl);*/
+  padding-right: var(--space-xxxl);
+  border: 2px solid var(--momentum-gray-300);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  height: 44px;
+  transition: all var(--transition-normal);
+  background-color: var(--bg-primary);
+}
+
+.momentum-input:focus {
+  border-color: var(--momentum-accent-blue);
+  box-shadow: 0 0 0 3px rgba(0, 188, 242, 0.1);
+  outline: none;
+  background-color: var(--momentum-gray-50);
+}
+
+.momentum-input-clear-btn {
+  position: absolute;
+  right: var(--space-md);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+  z-index: 2;
+}
+
+.momentum-input-clear-btn:hover {
+  color: var(--status-error);
+  background-color: rgba(209, 52, 56, 0.1);
+}
+
+.momentum-select {
+  border: 2px solid var(--momentum-gray-300);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  height: 44px;
+  transition: all var(--transition-normal);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.momentum-select:focus {
+  border-color: var(--momentum-accent-blue);
+  box-shadow: 0 0 0 3px rgba(0, 188, 242, 0.1);
+  outline: none;
+}
+
+.momentum-textarea {
+  border: 2px solid var(--momentum-gray-300);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  padding: var(--space-md);
+  transition: all var(--transition-normal);
+  resize: vertical;
+  min-height: 100px;
+}
+
+.momentum-textarea:focus {
+  border-color: var(--momentum-accent-blue);
+  box-shadow: 0 0 0 3px rgba(0, 188, 242, 0.1);
+  outline: none;
+}
+
+/* ==========================================================================
+   Knowledge Base Specific Styling
+   ========================================================================== */
+
+.momentum-knowledge-title-cell {
+  display: flex;
+  align-items: center;
+}
+
+.momentum-tooltip-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+}
+
+.momentum-knowledge-title {
+  color: var(--momentum-primary);
+  font-weight: var(--font-weight-semibold);
+  margin-right: var(--space-sm);
+}
+
+.momentum-tooltip-icon {
+  color: var(--momentum-accent-blue);
+  font-size: var(--font-size-xs);
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.momentum-tooltip-container:hover .momentum-tooltip-icon {
+  opacity: 1;
+}
+
+.momentum-tooltip {
+  visibility: hidden;
+  background-color: var(--momentum-gray-800);
+  color: var(--text-inverse);
+  text-align: left;
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-md);
+  position: absolute;
+  z-index: 1000;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4;
+  box-shadow: var(--shadow-xl);
+}
+
+.momentum-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--momentum-gray-800) transparent transparent transparent;
+}
+
+.momentum-tooltip-container:hover .momentum-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.momentum-author-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.momentum-author-icon {
+  color: var(--momentum-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.momentum-date-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.momentum-date-cell i {
+  color: var(--momentum-accent-orange);
+}
+
+.momentum-no-file-text {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Pagination styling removed */
+
+/* ==========================================================================
+   Modal Styling
+   ========================================================================== */
+
+.momentum-modal-content {
+  border: 3px solid var(--momentum-accent-blue);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
+  background-color: var(--bg-primary);
+}
+
+.momentum-modal-header {
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+  border-bottom: 2px solid var(--momentum-accent-blue);
+  padding: var(--space-xl);
+}
+
+.momentum-modal-title {
+  color: var(--text-inverse);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.momentum-modal-title i {
+  color: var(--momentum-accent-blue);
+  font-size: var(--font-size-lg);
+}
+
+.momentum-modal-close {
+  color: var(--text-inverse);
+  opacity: 0.8;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  transition: all var(--transition-fast);
+}
+
+.momentum-modal-close:hover {
+  opacity: 1;
+  color: var(--momentum-accent-orange);
+  transform: scale(1.1);
+}
+
+.momentum-modal-body {
+  padding: var(--space-xxl);
+  background-color: var(--bg-primary);
+}
+
+.momentum-modal-footer {
+  background: linear-gradient(135deg, var(--momentum-gray-50) 0%, var(--bg-primary) 100%);
+  border-top: 2px solid var(--momentum-gray-200);
+  padding: var(--space-xl);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+}
+
+.momentum-modal-backdrop {
+  background-color: rgba(31, 78, 121, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* File Upload Styling */
+.momentum-file-upload-container {
+  margin-top: var(--space-sm);
+}
+
+.momentum-file-input {
+  margin-bottom: var(--space-sm);
+  border: 2px dashed var(--momentum-gray-300);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  background-color: var(--momentum-gray-50);
+  transition: all var(--transition-normal);
+}
+
+.momentum-file-input:hover {
+  border-color: var(--momentum-accent-blue);
+  background-color: rgba(0, 188, 242, 0.05);
+}
+
+.momentum-file-help {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.momentum-file-help i {
+  color: var(--momentum-accent-blue);
+}
+
+.momentum-selected-file {
+  color: var(--status-success);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background-color: rgba(16, 124, 16, 0.1);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--status-success);
+}
+
+.momentum-file-size {
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+.momentum-character-count {
+  font-size: var(--font-size-xs);
+  margin-top: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.momentum-count-normal {
+  color: var(--text-secondary);
+}
+
+.momentum-count-warning {
+  color: var(--status-warning);
+}
+
+.momentum-approaching-limit {
+  color: var(--status-error);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================================================
+   Loading and Empty States
+   ========================================================================== */
+
+.momentum-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xxxl);
+  background: linear-gradient(135deg, var(--momentum-gray-50) 0%, var(--bg-primary) 100%);
+  border-radius: var(--border-radius-xl);
+  border: 2px solid var(--momentum-gray-200);
+}
+
+.momentum-spinner {
+  margin-bottom: var(--space-lg);
+}
+
+.momentum-loading-text {
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.momentum-empty-state {
+  text-align: center;
+  padding: var(--space-xxxl);
+}
+
+.momentum-empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.momentum-empty-icon {
+  color: var(--momentum-accent-blue);
+  font-size: 48px;
+  margin-bottom: var(--space-md);
+  opacity: 0.6;
+}
+
+.momentum-empty-title {
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.momentum-empty-message {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .momentum-page-header {
+    padding: var(--space-lg);
+  }
+  
+  .momentum-page-title {
+    font-size: var(--font-size-xl);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  
+  .momentum-btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .momentum-btn-group .btn {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .momentum-controls-section {
+    padding: var(--space-lg);
+  }
+  
+  .momentum-user-info {
+    text-align: left;
+    margin-top: var(--space-lg);
+  }
+  
+  .momentum-table-container {
+    overflow-x: auto;
+  }
+  
+  /* Responsive pagination styles removed */
+  
+  .momentum-auth-container {
+    padding: var(--space-lg);
+  }
+  
+  .momentum-auth-header,
+  .momentum-auth-body {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 576px) {
+  .momentum-page-container {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .momentum-modal-header,
+  .momentum-modal-body,
+  .momentum-modal-footer {
+    padding: var(--space-lg);
+  }
+  
+  .momentum-btn-group-sm {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  
+  .momentum-btn-group-sm .btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   CSS Fixes and Bootstrap Compatibility
+   ========================================================================== */
+
+/* Reset any conflicting Bootstrap styles for Momentum components */
+.momentum-auth-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 50%, var(--momentum-secondary) 100%);
+  display: flex;
+  align-items: center;
+  padding: var(--space-xxl) 15px; /* Add Bootstrap-compatible padding */
+  box-sizing: border-box;
+}
+
+/* Ensure Bootstrap grid works properly within Momentum components */
+.momentum-auth-container .row {
+  margin-left: -15px;
+  margin-right: -15px;
+  width: 100%;
+}
+
+.momentum-auth-container .col-md-6,
+.momentum-auth-container .col-lg-5 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Fix form control conflicts between Bootstrap and Momentum */
+.momentum-auth-form .form-control.momentum-input {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: var(--space-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  background-image: none;
+  border: 2px solid var(--momentum-gray-300);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.momentum-auth-form .form-control.momentum-input:focus {
+  color: var(--text-primary);
+  background-color: var(--momentum-gray-50);
+  border-color: var(--momentum-accent-blue);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(0, 188, 242, 0.1), var(--shadow-md);
+}
+
+/* Fix button conflicts */
+.momentum-auth-form .btn.momentum-btn-primary {
+  display: inline-block;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-inverse);
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background: linear-gradient(135deg, var(--momentum-primary) 0%, var(--momentum-primary-dark) 100%);
+  border: 2px solid var(--momentum-primary);
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.momentum-auth-form .btn.momentum-btn-primary:hover:not(:disabled) {
+  color: var(--text-inverse);
+  background: linear-gradient(135deg, var(--momentum-primary-hover) 0%, var(--momentum-primary) 100%);
+  border-color: var(--momentum-accent-blue);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+}
+
+.momentum-auth-form .btn.momentum-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.momentum-auth-form .btn.momentum-btn-link {
+  font-weight: var(--font-weight-semibold);
+  color: var(--momentum-primary);
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.momentum-auth-form .btn.momentum-btn-link:hover {
+  color: var(--momentum-secondary);
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+/* Fix responsive issues */
+@media (max-width: 576px) {
+  .momentum-auth-container {
+    padding: var(--space-lg) 15px;
+  }
+  
+  .momentum-auth-container .col-md-6,
+  .momentum-auth-container .col-lg-5 {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+  
+  .momentum-auth-card {
+    margin: 0;
+  }
+  
+  .momentum-auth-header,
+  .momentum-auth-body {
+    padding: var(--space-lg) !important;
+  }
+}
+
+/* Ensure proper spacing and layout */
+.momentum-form-group {
+  margin-bottom: var(--space-lg);
+  width: 100%;
+}
+
+.momentum-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+/* Fix any text color inheritance issues */
+.momentum-auth-container,
+.momentum-auth-container * {
+  box-sizing: border-box;
+}
+
+.momentum-auth-title {
+  color: var(--momentum-primary) !important;
+}
+
+.momentum-auth-subtitle {
+  color: var(--text-secondary) !important;
+}
+
+/* Ensure icons display properly */
+.momentum-label i {
+  margin-right: var(--space-sm);
+  color: var(--momentum-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.momentum-auth-logo i {
+  font-size: 48px !important;
+  color: var(--momentum-primary) !important;
+}
+
+/* Fix any flexbox issues */
+.momentum-auth-container .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.momentum-auth-container .justify-content-center {
+  justify-content: center !important;
+}

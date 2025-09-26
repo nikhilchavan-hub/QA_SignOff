@@ -1,246 +1,246 @@
-<!-- Knowledge Share Page -->
-<style>
-  .search-highlight {
-    background-color: #ffeb3b;
-    padding: 1px 2px;
-    border-radius: 2px;
-  }
+<!-- Knowledge Share Page with Momentum Theme -->
+<div class="momentum-app-container">
+  <!-- Header Navigation -->
+  <nav class="momentum-header">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="momentum-brand">
+          <i class="fas fa-check-circle"></i>
+          <span class="ml-2">QA Knowledge Management</span>
+        </div>
+        <!--<div class="momentum-nav-actions">
+          <button class="btn btn-outline-light btn-sm" ng-click="vm.goBack()">
+            <i class="fas fa-arrow-left"></i> Dashboard
+          </button>
+        </div>-->
+      </div>
+    </div>
+  </nav>
   
-  .search-bar {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #dee2e6;
-  }
-  
-  .search-results-info {
-    color: #6c757d;
-    font-size: 0.875rem;
-  }
-  
-  .hover-title {
-    cursor: help;
-    position: relative;
-    display: inline-block;
-  }
-  
-  .hover-title .tooltip-text {
-    visibility: hidden;
-    background-color: #333;
-    color: white;
-    text-align: left;
-    border-radius: 6px;
-    padding: 10px 12px;
-    position: fixed;
-    z-index: 9999;
-    max-width: 350px;
-    min-width: 200px;
-    font-size: 13px;
-    font-weight: normal;
-    line-height: 1.4;
-    word-wrap: break-word;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    opacity: 0;
-    transition: opacity 0.3s;
-    white-space: normal;
-    pointer-events: none;
-  }
-  
-  .hover-title:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-  }
-  
-  .hover-title .tooltip-text::after {
-    content: "";
-    position: absolute;
-    border-width: 5px;
-    border-style: solid;
-  }
-  
-  /* Arrow pointing up (tooltip below element) */
-  .hover-title .tooltip-text.tooltip-bottom::after {
-    top: -10px;
-    left: 20px;
-    border-color: transparent transparent #333 transparent;
-  }
-  
-  /* Arrow pointing down (tooltip above element) */
-  .hover-title .tooltip-text.tooltip-top::after {
-    bottom: -10px;
-    left: 20px;
-    border-color: #333 transparent transparent transparent;
-  }
-  
-  /* Arrow pointing right (tooltip to the left of element) */
-  .hover-title .tooltip-text.tooltip-left::after {
-    top: 50%;
-    right: -10px;
-    margin-top: -5px;
-    border-color: transparent transparent transparent #333;
-  }
-  
-  /* Arrow pointing left (tooltip to the right of element) */
-  .hover-title .tooltip-text.tooltip-right::after {
-    top: 50%;
-    left: -10px;
-    margin-top: -5px;
-    border-color: transparent #333 transparent transparent;
-  }
-</style>
-
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Knowledge Share</h2>
-    <div>
-      <button class="btn btn-primary" ng-click="vm.openAddTopicModal()">Add Topic</button>
-      <button class="btn btn-secondary ml-2" ng-click="vm.goBack()">
-        <i class="fas fa-arrow-left"></i> Back to Dashboard
-      </button>
+  <!-- Main Content Area -->
+  <main class="momentum-main-content">
+    <div class="container-fluid">
+      <div class="momentum-page-container">
+  <!-- Page Header -->
+  <div class="momentum-page-header">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h1 class="momentum-page-title">
+          <i class="fas fa-share-alt momentum-icon"></i>
+          Knowledge Share
+        </h1>
+      </div>
+      <div class="col-md-6 text-right">
+        <div class="momentum-btn-group">
+          <button class="btn momentum-btn-primary" ng-click="vm.openAddTopicModal()">
+            <i class="fas fa-plus"></i> Add Topic
+          </button>
+          <button class="btn momentum-btn-outline ml-2" ng-click="vm.goBack()">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Search Bar -->
-  <div class="search-bar">
+  <!-- Search Section -->
+  <div class="momentum-search-section">
     <div class="row">
       <div class="col-md-8">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-search"></i></span>
-          </div>
-          <input type="text" class="form-control" placeholder="Search by title or author..." 
-                 ng-model="vm.searchTerm" ng-change="vm.searchItems()" ng-keyup="vm.searchItems()">
-          <div class="input-group-append" ng-if="vm.searchTerm">
-            <button class="btn btn-outline-secondary" type="button" ng-click="vm.clearSearch()" title="Clear search">
+        <div class="momentum-form-group">
+          <label class="momentum-label">Search Knowledge Base</label>
+          <div class="momentum-input-group">
+            <i class="fas fa-search momentum-input-icon"></i>
+            <input type="text" class="form-control momentum-input" placeholder="Search by title or author..." 
+                   ng-model="vm.searchTerm" ng-change="vm.searchItems()" ng-keyup="vm.searchItems()">
+            <button class="momentum-input-clear-btn" ng-if="vm.searchTerm" ng-click="vm.clearSearch()" title="Clear search">
               <i class="fas fa-times"></i>
             </button>
           </div>
         </div>
       </div>
-      <div class="col-md-4 d-flex align-items-center justify-content-end">
-        <span class="search-results-info">
-          <i class="fas fa-info-circle mr-1"></i>
-          Showing <strong>{{vm.filteredItems.length}}</strong> of <strong>{{vm.knowledgeItems.length}}</strong> items
-          <span ng-if="vm.searchTerm"> for "<em>{{vm.searchTerm}}</em>"</span>
-          <br>
-          <small class="text-muted">
-            <i class="fas fa-lightbulb mr-1"></i>
-            Search filters by title and author only
-          </small>
-        </span>
+      <div class="col-md-4">
+        <div class="momentum-search-results-info">
+          <div class="momentum-info-card">
+            <i class="fas fa-info-circle momentum-info-icon"></i>
+            <div class="momentum-info-content">
+              <div class="momentum-info-stats">
+                Showing <strong>{{vm.filteredItems.length}}</strong> of <strong>{{vm.knowledgeItems.length}}</strong> items
+                <span ng-if="vm.searchTerm"> for "<em class="momentum-search-term">{{vm.searchTerm}}</em>"</span>
+              </div>
+              <div class="momentum-info-hint">
+                <i class="fas fa-lightbulb"></i>
+                Search filters by title and author
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   
-  <div ng-if="vm.loading" class="text-center">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
+  <!-- Loading indicator -->
+  <div ng-if="vm.loading" class="momentum-loading-state">
+    <div class="momentum-spinner">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
     </div>
+    <p class="momentum-loading-text">Loading knowledge base...</p>
   </div>
   
-  <table class="table table-bordered table-hover" ng-if="!vm.loading">
-    <thead class="thead-dark">
-      <tr>
-        <th style="width: 80px;">No</th>
-        <th>
-          <i class="fas fa-search mr-1 text-warning" title="Searchable"></i>
-          Title
-        </th>
-        <th style="width: 200px;">
-          <i class="fas fa-search mr-1 text-warning" title="Searchable"></i>
-          Author
-        </th>
-        <th style="width: 150px;">Upload Date</th>
-        <th style="width: 120px;">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="item in vm.filteredItems track by item.id">
-        <td>{{$index + 1}}</td>
-        <td>
-          <span class="hover-title" 
-                ng-mouseenter="vm.showTooltip($event, item.description)" 
-                ng-mouseleave="vm.hideTooltip($event)">
-            <strong ng-bind-html="vm.highlightSearch(item.subject, vm.searchTerm)">{{item.subject}}</strong>
-            <span class="tooltip-text">{{item.description}}</span>
-          </span>
-        </td>
-        <td ng-bind-html="vm.highlightSearch(item.author_name, vm.searchTerm)">{{item.author_name}}</td>
-        <td>{{vm.formatDate(item.created_at)}}</td>
-        <td>
-          <button class="btn btn-info btn-sm" ng-click="vm.downloadFile(item)" ng-if="item.uploadeddocument">
-            <i class="fas fa-download"></i> Download
-          </button>
-          <span ng-if="!item.uploadeddocument" class="text-muted">No file</span>
-        </td>
-      </tr>
-      <tr ng-if="vm.filteredItems.length === 0 && !vm.loading" class="no-results">
-        <td colspan="5" class="text-center py-4">
-          <div ng-if="vm.searchTerm" class="text-muted">
-            <i class="fas fa-search fa-2x mb-2"></i>
-            <p class="mb-1"><strong>No items found matching "{{vm.searchTerm}}"</strong></p>
-            <p class="small">Search looked in title and author fields. Try adjusting your search terms or <a href="#" ng-click="vm.clearSearch()">clear the search</a></p>
-          </div>
-          <div ng-if="!vm.searchTerm" class="text-muted">
-            <i class="fas fa-inbox fa-2x mb-2"></i>
-            <p><strong>No knowledge share items found</strong></p>
-            <p class="small">Be the first to share knowledge by adding a new topic!</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
+  <!-- Knowledge Base Table -->
+  <div ng-if="!vm.loading" class="momentum-table-container">
+    <table class="table momentum-table">
+      <thead class="momentum-table-header">
+        <tr>
+          <th class="momentum-th" style="width: 80px;">#</th>
+          <th class="momentum-th">
+            <i class="fas fa-search momentum-searchable-icon" title="Searchable field"></i>
+            Title
+          </th>
+          <th class="momentum-th" style="width: 200px;">
+            <i class="fas fa-search momentum-searchable-icon" title="Searchable field"></i>
+            Author
+          </th>
+          <th class="momentum-th" style="width: 150px;">
+            <i class="fas fa-calendar"></i>
+            Upload Date
+          </th>
+          <th class="momentum-th" style="width: 120px;">Action</th>
+        </tr>
+      </thead>
+      <tbody class="momentum-table-body">
+        <tr ng-repeat="item in vm.filteredItems track by item.id" class="momentum-table-row">
+          <td class="momentum-td momentum-row-number">{{$index + 1}}</td>
+          <td class="momentum-td">
+            <div class="momentum-knowledge-title-cell">
+              <div class="momentum-tooltip-container" 
+                   ng-mouseenter="vm.showTooltip($event, item.description)" 
+                   ng-mouseleave="vm.hideTooltip($event)">
+                <strong class="momentum-knowledge-title" ng-bind-html="vm.highlightSearch(item.subject, vm.searchTerm)">{{item.subject}}</strong>
+                <i class="fas fa-info-circle momentum-tooltip-icon"></i>
+                <div class="momentum-tooltip">{{item.description}}</div>
+              </div>
+            </div>
+          </td>
+          <td class="momentum-td">
+            <div class="momentum-author-cell">
+              <i class="fas fa-user momentum-author-icon"></i>
+              <span ng-bind-html="vm.highlightSearch(item.author_name, vm.searchTerm)">{{item.author_name}}</span>
+            </div>
+          </td>
+          <td class="momentum-td">
+            <div class="momentum-date-cell">
+              <i class="fas fa-calendar-alt"></i>
+              {{vm.formatDate(item.created_at)}}
+            </div>
+          </td>
+          <td class="momentum-td momentum-actions-cell">
+            <button class="btn momentum-btn-info" ng-click="vm.downloadFile(item)" ng-if="item.uploadeddocument" title="Download file">
+              <i class="fas fa-download"></i> Download
+            </button>
+            <span ng-if="!item.uploadeddocument" class="momentum-no-file-text">
+              <i class="fas fa-file-slash"></i> No file
+            </span>
+          </td>
+        </tr>
+        <tr ng-if="vm.filteredItems.length === 0 && !vm.loading">
+          <td colspan="5" class="momentum-empty-state">
+            <div class="momentum-empty-content">
+              <div ng-if="vm.searchTerm">
+                <i class="fas fa-search momentum-empty-icon"></i>
+                <h4 class="momentum-empty-title">No items found matching "{{vm.searchTerm}}"</h4>
+                <p class="momentum-empty-message">Search looked in title and author fields.</p>
+                <button class="btn momentum-btn-outline" ng-click="vm.clearSearch()">
+                  <i class="fas fa-times"></i> Clear Search
+                </button>
+              </div>
+              <div ng-if="!vm.searchTerm">
+                <i class="fas fa-share-alt momentum-empty-icon"></i>
+                <h4 class="momentum-empty-title">No knowledge share items found</h4>
+                <p class="momentum-empty-message">Be the first to share knowledge by adding a new topic!</p>
+                <button class="btn momentum-btn-primary" ng-click="vm.openAddTopicModal()">
+                  <i class="fas fa-plus"></i> Add First Topic
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
   </table>
 </div>
 
-<!-- Add Topic Modal -->
-<div class="modal fade" id="addTopicModal" tabindex="-1" role="dialog" aria-labelledby="addTopicModalLabel" aria-hidden="true" 
+<!-- Add Topic Modal with Momentum Theme -->
+<div class="modal fade momentum-modal" id="addTopicModal" tabindex="-1" role="dialog" aria-labelledby="addTopicModalLabel" aria-hidden="true" 
      ng-show="vm.showModal" style="display: block;" ng-style="{'display': vm.showModal ? 'block' : 'none'}">
   <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addTopicModalLabel">Add New Topic</h5>
-        <button type="button" class="close" ng-click="vm.closeModal()" aria-label="Close">
+    <div class="modal-content momentum-modal-content">
+      <div class="modal-header momentum-modal-header">
+        <h5 class="modal-title momentum-modal-title" id="addTopicModalLabel">
+          <i class="fas fa-plus-circle"></i>
+          Add New Topic
+        </h5>
+        <button type="button" class="close momentum-modal-close" ng-click="vm.closeModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form name="addTopicForm" ng-submit="vm.submitTopic()">
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="subject">Subject *</label>
-            <input type="text" class="form-control" id="subject" ng-model="vm.newTopic.subject" required>
+        <div class="modal-body momentum-modal-body">
+          <div class="momentum-form-group">
+            <label for="subject" class="momentum-label">
+              <i class="fas fa-heading"></i>
+              Subject *
+            </label>
+            <input type="text" class="form-control momentum-input" id="subject" 
+                   ng-model="vm.newTopic.subject" required 
+                   placeholder="Enter a descriptive title for your topic">
           </div>
           
-          <div class="form-group">
-            <label for="description">Description *</label>
-            <textarea class="form-control" id="description" rows="4" 
+          <div class="momentum-form-group">
+            <label for="description" class="momentum-label">
+              <i class="fas fa-align-left"></i>
+              Description *
+            </label>
+            <textarea class="form-control momentum-textarea" id="description" rows="4" 
                       ng-model="vm.newTopic.description" 
                       maxlength="1000" 
-                      required></textarea>
-            <small class="form-text" ng-class="{'text-danger': vm.getDescriptionLength() > 900, 'text-muted': vm.getDescriptionLength() <= 900}">
+                      required
+                      placeholder="Provide a detailed description of your topic"></textarea>
+            <div class="momentum-character-count" ng-class="{'momentum-count-warning': vm.getDescriptionLength() > 900, 'momentum-count-normal': vm.getDescriptionLength() <= 900}">
+              <i class="fas fa-info-circle"></i>
               {{vm.getDescriptionLength()}}/1000 characters
-              <span ng-if="vm.getDescriptionLength() > 900" class="text-warning"> (approaching limit)</span>
-            </small>
+              <span ng-if="vm.getDescriptionLength() > 900" class="momentum-approaching-limit"> (approaching limit)</span>
+            </div>
           </div>
           
-          <div class="form-group">
-            <label for="fileUpload">Upload Document</label>
-            <input type="file" class="form-control-file" id="fileUpload" 
-                   accept=".zip,.pdf,.docx,.csv,.xlsx,.xls,.png,.jpg,.jpeg,.mp4,.mov,.avi,.mkv,.wmv,.flv,.webm,.3gp"
-                   onchange="angular.element(this).scope().vm.handleFileSelect(this)">
-            <small class="form-text text-muted">
-              Accepted formats: .zip, .pdf, .docx, .csv, .xlsx, .xls, .png, .jpg, .jpeg, .mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .3gp
-            </small>
-            <div ng-if="vm.selectedFile" class="mt-2">
-              <small class="text-success">
-                <i class="fas fa-file"></i> Selected: {{vm.selectedFile.name}} ({{vm.formatFileSize(vm.selectedFile.size)}})
-              </small>
+          <div class="momentum-form-group">
+            <label for="fileUpload" class="momentum-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              Upload Document
+            </label>
+            <div class="momentum-file-upload-container">
+              <input type="file" class="momentum-file-input" id="fileUpload" 
+                     accept=".zip,.pdf,.docx,.csv,.xlsx,.xls,.png,.jpg,.jpeg,.mp4,.mov,.avi,.mkv,.wmv,.flv,.webm,.3gp"
+                     onchange="angular.element(this).scope().vm.handleFileSelect(this)">
+              <div class="momentum-file-help">
+                <i class="fas fa-file-alt"></i>
+                Accepted formats: .zip, .pdf, .docx, .csv, .xlsx, .xls, .png, .jpg, .jpeg, .mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .3gp
+              </div>
+              <div ng-if="vm.selectedFile" class="momentum-selected-file">
+                <i class="fas fa-check-circle text-success"></i>
+                <strong>Selected:</strong> {{vm.selectedFile.name}} 
+                <span class="momentum-file-size">({{vm.formatFileSize(vm.selectedFile.size)}})</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" ng-click="vm.closeModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary" ng-disabled="vm.submitting || !addTopicForm.$valid">
+        <div class="modal-footer momentum-modal-footer">
+          <button type="button" class="btn momentum-btn-outline" ng-click="vm.closeModal()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+          <button type="submit" class="btn momentum-btn-primary" ng-disabled="vm.submitting || !addTopicForm.$valid">
+            <i class="fas" ng-class="vm.submitting ? 'fa-spinner fa-spin' : 'fa-plus'"></i>
             {{vm.submitting ? 'Uploading...' : 'Add Topic'}}
           </button>
         </div>
@@ -249,5 +249,10 @@
   </div>
 </div>
 
+      </div>
+    </div>
+  </main>
+</div>
+
 <!-- Modal Backdrop -->
-<div class="modal-backdrop fade show" ng-if="vm.showModal" ng-click="vm.closeModal()" style="z-index: 1040;"></div>
+<div class="modal-backdrop fade show momentum-modal-backdrop" ng-if="vm.showModal" ng-click="vm.closeModal()" style="z-index: 1040;"></div>

@@ -19,6 +19,29 @@ angular.module('qaSignOffApp')
   vm.signOffId = $stateParams.id;
   vm.currentUser = JSON.parse(localStorage.getItem('qa_user') || '{}');
 
+  // Helper function to format dates properly
+  vm.formatDateForSending = function(dateValue) {
+    if (!dateValue || dateValue.length === 0 || dateValue === '') {
+      return null;
+    }
+    
+    // If it's already in YYYY-MM-DD format and valid, return as is
+    if (typeof dateValue === 'string' && dateValue.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      var testDate = new Date(dateValue + 'T00:00:00');
+      if (!isNaN(testDate.getTime())) {
+        return dateValue;
+      }
+    }
+    
+    // Try to parse as Date and format
+    var date = new Date(dateValue);
+    if (!isNaN(date.getTime())) {
+      return date.toISOString().split('T')[0];
+    }
+    
+    return null;
+  };
+
   vm.init = function() {
     // Load VDS list
     ApiService.getVDS().then(function(response) {
@@ -119,6 +142,21 @@ angular.module('qaSignOffApp')
     data.user_id = vm.currentUser.userid;
     data.status = 'In progress';
     
+    // Ensure date fields are properly formatted or null
+    data.start_date = vm.formatDateForSending(vm.form.start_date);
+    data.end_date = vm.formatDateForSending(vm.form.end_date);
+    data.actual_start_date = vm.formatDateForSending(vm.form.actual_start_date);
+    data.actual_end_date = vm.formatDateForSending(vm.form.actual_end_date);
+    data.prod_rel_dt = vm.formatDateForSending(vm.form.prod_rel_dt);
+    
+    console.log('Saving data with dates:', {
+      start_date: data.start_date,
+      end_date: data.end_date,
+      actual_start_date: data.actual_start_date,
+      actual_end_date: data.actual_end_date,
+      prod_rel_dt: data.prod_rel_dt
+    });
+    
     var apiCall = vm.isEditMode ? 
       ApiService.updateSignOff(vm.signOffId, data) : 
       ApiService.createSignOff(data);
@@ -133,6 +171,7 @@ angular.module('qaSignOffApp')
       $state.go('dashboard');
     }).catch(function(err) {
       vm.loading = false;
+      console.error('Error saving sign off:', err);
       alert('Error saving sign off: ' + (err.data && err.data.error || 'Unknown error'));
     });
   };
@@ -148,6 +187,21 @@ angular.module('qaSignOffApp')
     data.user_id = vm.currentUser.userid;
     data.status = 'Complete';
     
+    // Ensure date fields are properly formatted or null
+    data.start_date = vm.formatDateForSending(vm.form.start_date);
+    data.end_date = vm.formatDateForSending(vm.form.end_date);
+    data.actual_start_date = vm.formatDateForSending(vm.form.actual_start_date);
+    data.actual_end_date = vm.formatDateForSending(vm.form.actual_end_date);
+    data.prod_rel_dt = vm.formatDateForSending(vm.form.prod_rel_dt);
+    
+    console.log('Submitting data with dates:', {
+      start_date: data.start_date,
+      end_date: data.end_date,
+      actual_start_date: data.actual_start_date,
+      actual_end_date: data.actual_end_date,
+      prod_rel_dt: data.prod_rel_dt
+    });
+    
     var apiCall = vm.isEditMode ? 
       ApiService.updateSignOff(vm.signOffId, data) : 
       ApiService.createSignOff(data);
@@ -162,6 +216,7 @@ angular.module('qaSignOffApp')
       $state.go('dashboard');
     }).catch(function(err) {
       vm.loading = false;
+      console.error('Error submitting sign off:', err);
       alert('Error submitting sign off: ' + (err.data && err.data.error || 'Unknown error'));
     });
   };

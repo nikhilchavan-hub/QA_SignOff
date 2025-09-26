@@ -4,8 +4,7 @@ angular.module('qaSignOffApp')
   var vm = this;
   vm.records = [];
   vm.searchText = '';
-  vm.page = 1;
-  vm.totalPages = 1;
+  vm.loading = false;
   vm.currentUser = JSON.parse(localStorage.getItem('qa_user') || '{}');
   
   vm.columns = [
@@ -17,21 +16,32 @@ angular.module('qaSignOffApp')
   ];
 
   vm.loadData = function() {
+    vm.loading = true;
     var params = {
-      page: vm.page,
-      limit: 10,
       search: vm.searchText
     };
     
     ApiService.getSignOffDetails(params).then(function(response) {
-      vm.records = response.data;
+      // Handle the response and extract records
+      if (response.data && response.data.data) {
+        vm.records = response.data.data;
+      } else {
+        // Fallback for simplified response format
+        vm.records = response.data || [];
+      }
+      
+      vm.loading = false;
     }).catch(function(err) {
       console.error('Error loading data:', err);
+      vm.loading = false;
+      vm.records = [];
       if (err.status === 401) {
         $state.go('login');
       }
     });
   };
+
+  // ...existing code...
 
   vm.view = function(row) {
     $state.go('signoff-view', { id: row.id || row.ID });
@@ -50,7 +60,6 @@ angular.module('qaSignOffApp')
   };
 
   vm.search = function() {
-    vm.page = 1;
     vm.loadData();
   };
 

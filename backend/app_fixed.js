@@ -112,11 +112,19 @@ app.get('/api/getVDS', auth, async (req, res) => {
 
 // --- Get Sign Off Details (Dashboard) ---
 app.get('/api/signOffDetails', auth, async (req, res) => {
-  const { page = 1, limit = 10, search = '' } = req.query;
-  const offset = (page - 1) * limit;
-  const baseQuery = 'SELECT * FROM "Sign_Off_Req" WHERE project_name ILIKE $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3';
-  const result = await pool.query(baseQuery, [`%${search}%`, limit, offset]);
-  res.json(result.rows);
+  try {
+    const { search = '' } = req.query;
+    const searchPattern = `%${search}%`;
+    
+    // Get all records
+    const baseQuery = 'SELECT * FROM "Sign_Off_Req" WHERE project_name ILIKE $1 ORDER BY created_at DESC';
+    const result = await pool.query(baseQuery, [searchPattern]);
+    
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching sign off details:', error);
+    res.status(500).json({ error: 'Failed to fetch sign off details' });
+  }
 });
 
 // --- Get Sign Off by ID ---
@@ -138,10 +146,34 @@ app.post('/api/signoffs', auth, async (req, res) => {
     // Extract main form data
     const { project_name, VDS_id, user_id, status, observations, caveats, JIRA_Link, application, cm_number, end_date, project_details, qa, start_date, actual_start_date, actual_end_date, prod_rel_dt, rag_status, outofscope, evidences, comments, tasktype, signofftype, defect_filter_link, testCases, defects } = req.body;
 
+    // Debug log the date values
+    console.log('Creating sign-off with dates:', {
+      start_date,
+      end_date,
+      actual_start_date,
+      actual_end_date,
+      prod_rel_dt
+    });
+
+    // Convert date fields - ensure they're either null or valid date strings
+    const processedStartDate = start_date && start_date !== '' ? start_date : null;
+    const processedEndDate = end_date && end_date !== '' ? end_date : null;
+    const processedActualStartDate = actual_start_date && actual_start_date !== '' ? actual_start_date : null;
+    const processedActualEndDate = actual_end_date && actual_end_date !== '' ? actual_end_date : null;
+    const processedProdRelDt = prod_rel_dt && prod_rel_dt !== '' ? prod_rel_dt : null;
+
+    console.log('Processed dates:', {
+      processedStartDate,
+      processedEndDate,
+      processedActualStartDate,
+      processedActualEndDate,
+      processedProdRelDt
+    });
+
     // Insert main sign off record
     const signOffResult = await client.query(
       'INSERT INTO "Sign_Off_Req" (project_name, VDS_id, user_id, status, observations, caveats, JIRA_Link, application, cm_number, end_date, project_details, qa, start_date, actual_start_date, actual_end_date, prod_rel_dt, rag_status, "outOfScope", evidences, comments, tasktype, "SignOffType", defect_filter_link) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING ID',
-      [project_name, VDS_id, user_id, status, observations, caveats, JIRA_Link, application, cm_number, end_date, project_details, qa, start_date, actual_start_date, actual_end_date, prod_rel_dt, rag_status, outofscope, evidences, comments, tasktype, signofftype, defect_filter_link]
+      [project_name, VDS_id, user_id, status, observations, caveats, JIRA_Link, application, cm_number, processedEndDate, project_details, qa, processedStartDate, processedActualStartDate, processedActualEndDate, processedProdRelDt, rag_status, outofscope, evidences, comments, tasktype, signofftype, defect_filter_link]
     );
     
     const signOffId = signOffResult.rows[0].id;
@@ -225,10 +257,34 @@ app.put('/api/signoffs/:id', auth, async (req, res) => {
     // Extract main form data
     const { project_name, VDS_id, user_id, status, observations, caveats, JIRA_Link, application, cm_number, end_date, project_details, qa, start_date, actual_start_date, actual_end_date, prod_rel_dt, rag_status, outofscope, defect_filter_link, evidences, comments, tasktype, signofftype, testCases, defects } = req.body;
     
+    // Debug log the date values
+    console.log('Updating sign-off with dates:', {
+      start_date,
+      end_date,
+      actual_start_date,
+      actual_end_date,
+      prod_rel_dt
+    });
+
+    // Convert date fields - ensure they're either null or valid date strings
+    const processedStartDate = start_date && start_date !== '' ? start_date : null;
+    const processedEndDate = end_date && end_date !== '' ? end_date : null;
+    const processedActualStartDate = actual_start_date && actual_start_date !== '' ? actual_start_date : null;
+    const processedActualEndDate = actual_end_date && actual_end_date !== '' ? actual_end_date : null;
+    const processedProdRelDt = prod_rel_dt && prod_rel_dt !== '' ? prod_rel_dt : null;
+
+    console.log('Processed dates for update:', {
+      processedStartDate,
+      processedEndDate,
+      processedActualStartDate,
+      processedActualEndDate,
+      processedProdRelDt
+    });
+    
     // Update main sign off record
     await client.query(
       'UPDATE "Sign_Off_Req" SET project_name=$1, VDS_id=$2, user_id=$3, status=$4, observations=$5, caveats=$6, JIRA_Link=$7, application=$8, cm_number=$9, end_date=$10, project_details=$11, qa=$12, start_date=$13, actual_start_date=$14, actual_end_date=$15, prod_rel_dt=$16, rag_status=$17, "outOfScope"=$18, defect_filter_link=$19, evidences=$20, comments=$21, tasktype=$22, "SignOffType"=$23, updated_at=CURRENT_TIMESTAMP WHERE ID=$24',
-      [project_name, VDS_id, user_id, status, observations, caveats, JIRA_Link, application, cm_number, end_date, project_details, qa, start_date, actual_start_date, actual_end_date, prod_rel_dt, rag_status, outofscope, defect_filter_link, evidences, comments, tasktype, signofftype, signOffId]
+      [project_name, VDS_id, user_id, status, observations, caveats, JIRA_Link, application, cm_number, processedEndDate, project_details, qa, processedStartDate, processedActualStartDate, processedActualEndDate, processedProdRelDt, rag_status, outofscope, defect_filter_link, evidences, comments, tasktype, signofftype, signOffId]
     );
     
     // Delete existing test cases and defects to replace with new data
