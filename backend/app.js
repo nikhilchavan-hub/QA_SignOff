@@ -57,8 +57,8 @@ const emailConfigs = [
   {
     name: 'Outlook Email Service',
     config: {
-      host: 'smtpcen.mmih.biz',//'smtpcen.mmih.biz', 'smtppdc.mmih.biz'
-      port: 25,
+      host: 'SMTP.office365.com',
+      port: 587,
       secure: false,
       auth: {
         user: 'nikhil.chavan@momentum.co.za',
