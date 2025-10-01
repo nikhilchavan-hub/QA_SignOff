@@ -65,8 +65,9 @@
             <i class="fas fa-info-circle momentum-info-icon"></i>
             <div class="momentum-info-content">
               <div class="momentum-info-stats">
-                Showing <strong>{{vm.filteredItems.length}}</strong> of <strong>{{vm.knowledgeItems.length}}</strong> items
+                Showing <strong>{{vm.paginatedItems.length}}</strong> of <strong>{{vm.filteredItems.length}}</strong> items
                 <span ng-if="vm.searchTerm"> for "<em class="momentum-search-term">{{vm.searchTerm}}</em>"</span>
+                <span ng-if="vm.totalPages > 1">(Page {{vm.currentPage}} of {{vm.totalPages}})</span>
               </div>
               <div class="momentum-info-hint">
                 <i class="fas fa-lightbulb"></i>
@@ -111,8 +112,8 @@
         </tr>
       </thead>
       <tbody class="momentum-table-body">
-        <tr ng-repeat="item in vm.filteredItems track by item.id" class="momentum-table-row">
-          <td class="momentum-td momentum-row-number">{{$index + 1}}</td>
+        <tr ng-repeat="item in vm.paginatedItems track by item.id" class="momentum-table-row">
+          <td class="momentum-td momentum-row-number">{{((vm.currentPage - 1) * vm.itemsPerPage) + $index + 1}}</td>
           <td class="momentum-td">
             <div class="momentum-knowledge-title-cell">
               <div class="momentum-tooltip-container" 
@@ -145,7 +146,7 @@
             </span>
           </td>
         </tr>
-        <tr ng-if="vm.filteredItems.length === 0 && !vm.loading">
+        <tr ng-if="vm.paginatedItems.length === 0 && vm.filteredItems.length === 0 && !vm.loading">
           <td colspan="5" class="momentum-empty-state">
             <div class="momentum-empty-content">
               <div ng-if="vm.searchTerm">
@@ -169,6 +170,27 @@
         </tr>
       </tbody>
   </table>
+
+  <!-- Pagination Controls -->
+  <div ng-if="vm.totalPages > 1" class="momentum-pagination-container">
+    <nav aria-label="Knowledge share pagination">
+      <ul class="pagination momentum-pagination">
+        <li class="page-item" ng-class="{'disabled': vm.currentPage === 1}">
+          <button type="button" class="page-link" ng-click="vm.previousPage()" ng-disabled="vm.currentPage === 1">
+            <i class="fas fa-chevron-left"></i> Previous
+          </button>
+        </li>
+        <li class="page-item" ng-repeat="page in vm.getPageNumbers()" ng-class="{'active': page === vm.currentPage}">
+          <button type="button" class="page-link" ng-click="vm.goToPage(page)">{{page}}</button>
+        </li>
+        <li class="page-item" ng-class="{'disabled': vm.currentPage === vm.totalPages}">
+          <button type="button" class="page-link" ng-click="vm.nextPage()" ng-disabled="vm.currentPage === vm.totalPages">
+            Next <i class="fas fa-chevron-right"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
 
 <!-- Add Topic Modal with Momentum Theme -->

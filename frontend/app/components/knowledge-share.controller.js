@@ -4,12 +4,18 @@ angular.module('qaSignOffApp')
   var vm = this;
   vm.knowledgeItems = [];
   vm.filteredItems = [];
+  vm.paginatedItems = [];
   vm.loading = false;
   vm.submitting = false;
   vm.selectedFile = null;
   vm.showModal = false;
   vm.searchTerm = '';
   vm.currentUser = JSON.parse(localStorage.getItem('qa_user') || '{}');
+  
+  // Pagination properties
+  vm.currentPage = 1;
+  vm.itemsPerPage = 10;
+  vm.totalPages = 1;
   
   vm.newTopic = {
     subject: '',
@@ -36,10 +42,74 @@ angular.module('qaSignOffApp')
         return titleMatch || authorMatch;
       });
     }
+    vm.currentPage = 1;
+    vm.updatePagination();
+  };
+
+  // Pagination functions
+  vm.updatePagination = function() {
+    vm.totalPages = vm.filteredItems.length > 0 ? Math.ceil(vm.filteredItems.length / vm.itemsPerPage) : 1;
+    if (vm.currentPage > vm.totalPages || vm.currentPage < 1) {
+      vm.currentPage = Math.max(1, Math.min(vm.totalPages, vm.currentPage));
+    }
+    vm.updatePaginatedItems();
+  };
+
+  vm.updatePaginatedItems = function() {
+    var startIndex = (vm.currentPage - 1) * vm.itemsPerPage;
+    var endIndex = startIndex + vm.itemsPerPage;
+    vm.paginatedItems = vm.filteredItems.slice(startIndex, endIndex);
+    console.log('Knowledge Share pagination updated:', {
+      currentPage: vm.currentPage,
+      totalPages: vm.totalPages,
+      totalFiltered: vm.filteredItems.length,
+      paginatedItems: vm.paginatedItems.length,
+      startIndex: startIndex,
+      endIndex: endIndex
+    });
+  };
+
+  vm.goToPage = function(page) {
+    if (page >= 1 && page <= vm.totalPages && page !== vm.currentPage) {
+      vm.currentPage = page;
+      vm.updatePaginatedItems();
+    }
+  };
+
+  vm.previousPage = function() {
+    if (vm.currentPage > 1) {
+      vm.currentPage--;
+      vm.updatePaginatedItems();
+    }
+  };
+
+  vm.nextPage = function() {
+    if (vm.currentPage < vm.totalPages) {
+      vm.currentPage++;
+      vm.updatePaginatedItems();
+    }
+  };
+
+  vm.getPageNumbers = function() {
+    var pages = [];
+    var maxPagesToShow = 5;
+    var startPage = Math.max(1, vm.currentPage - Math.floor(maxPagesToShow / 2));
+    var endPage = Math.min(vm.totalPages, startPage + maxPagesToShow - 1);
+    
+    // Adjust startPage if we're near the end
+    if (endPage - startPage + 1 < maxPagesToShow) {
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    
+    for (var i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
   };
 
   vm.clearSearch = function() {
     vm.searchTerm = '';
+    vm.currentPage = 1;
     vm.searchItems();
   };
 
@@ -61,6 +131,8 @@ angular.module('qaSignOffApp')
     ApiService.getKnowledgeShare().then(function(response) {
       vm.knowledgeItems = response.data;
       vm.filteredItems = vm.knowledgeItems; // Initialize filtered items
+      vm.currentPage = 1;
+      vm.updatePagination();
       vm.loading = false;
     }).catch(function(err) {
       vm.loading = false;

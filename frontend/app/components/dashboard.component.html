@@ -65,7 +65,8 @@
             Welcome, {{vm.currentUser.firstname}} {{vm.currentUser.lastname}}
           </div>
           <div class="momentum-record-info" ng-if="vm.records.length > 0">
-            Showing {{vm.records.length}} records
+            Showing {{vm.paginatedRecords.length}} of {{vm.records.length}} records
+            <span ng-if="vm.totalPages > 1">(Page {{vm.currentPage}} of {{vm.totalPages}})</span>
           </div>
         </div>
       </div>
@@ -92,7 +93,7 @@
         </tr>
       </thead>
       <tbody class="momentum-table-body">
-        <tr ng-repeat="row in vm.records" class="momentum-table-row">
+        <tr ng-repeat="row in vm.paginatedRecords" class="momentum-table-row">
           <td ng-repeat="col in vm.columns" class="momentum-td">
             <span ng-if="col.key === 'created_at'" class="momentum-date">{{row[col.key] | date:'dd/MM/yyyy'}}</span>
             <span ng-if="col.key === 'status'">
@@ -125,6 +126,27 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- Pagination Controls -->
+    <div ng-if="vm.totalPages > 1" class="momentum-pagination-container">
+      <nav aria-label="Dashboard pagination">
+        <ul class="pagination momentum-pagination">
+          <li class="page-item" ng-class="{'disabled': vm.currentPage === 1}">
+            <button type="button" class="page-link" ng-click="vm.previousPage()" ng-disabled="vm.currentPage === 1">
+              <i class="fas fa-chevron-left"></i> Previous
+            </button>
+          </li>
+          <li class="page-item" ng-repeat="page in vm.getPageNumbers()" ng-class="{'active': page === vm.currentPage}">
+            <button type="button" class="page-link" ng-click="vm.goToPage(page)">{{page}}</button>
+          </li>
+          <li class="page-item" ng-class="{'disabled': vm.currentPage === vm.totalPages}">
+            <button type="button" class="page-link" ng-click="vm.nextPage()" ng-disabled="vm.currentPage === vm.totalPages">
+              Next <i class="fas fa-chevron-right"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     </div>
   </main>
